@@ -15,7 +15,5 @@ import java.util.List;
  * @Date: 2020-04-28 20:40
  */
 @Mapper
-@Repository
 public interface ChinaCityMapper extends BaseMapper<ChinaCity> {
-    List<ChinaCityVo> selectCityListByProvinceId(Long provinceId);
 }

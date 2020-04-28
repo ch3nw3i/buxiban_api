@@ -1,6 +1,7 @@
 package com.buxiban.system.api;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.segments.MergeSegments;
 import com.buxiban.system.entity.ChinaCity;
 import com.buxiban.system.entity.ChinaProvince;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Package: com.buxiban.system.api
@@ -51,8 +53,10 @@ public class ChinaAreaController {
 
     @ApiOperation("根据province id获取city列表")
     @GetMapping("/city/listByProvinceId")
-    public ResponseEntity<List<ChinaCityVo>> listCityByProvinceId(@RequestParam Long provinceId) {
-        List<ChinaCityVo> list = chinaCityService.selectCityListByProvinceId(provinceId);
+    public ResponseEntity<List<ChinaCity>> listCityByProvinceId(@RequestParam Long provinceId) {
+        QueryWrapper<ChinaCity> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda().eq(ChinaCity::getProvinceId, provinceId);
+        List<ChinaCity> list = chinaCityService.list(queryWrapper);
         return ResponseEntity.ok(list);
     }
 

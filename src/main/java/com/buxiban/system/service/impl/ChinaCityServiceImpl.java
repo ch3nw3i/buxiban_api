@@ -2,6 +2,7 @@ package com.buxiban.system.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.buxiban.system.entity.ChinaCity;
+import com.buxiban.system.entity.vo.ChinaCityVo;
 import com.buxiban.system.mapper.ChinaCityMapper;
 import com.buxiban.system.service.ChinaCityService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +17,4 @@ import java.util.List;
  */
 @Service
 public class ChinaCityServiceImpl extends ServiceImpl<ChinaCityMapper, ChinaCity> implements ChinaCityService {
-
-    @Autowired
-    private ChinaCityMapper chinaCityMapper;
-
-    @Override
-    public List<ChinaCity> selectCityListByProvinceId(Long provinceId) {
-        return chinaCityMapper.selectCityListByProvinceId(provinceId);
-    }
 }

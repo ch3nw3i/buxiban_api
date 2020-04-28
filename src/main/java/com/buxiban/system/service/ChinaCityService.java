@@ -13,6 +13,4 @@ import java.util.List;
  * @Date: 2020-04-28 20:43
  */
 public interface ChinaCityService extends IService<ChinaCity> {
-
-    List<ChinaCityVo> selectCityListByProvinceId(Long provinceId);
 }

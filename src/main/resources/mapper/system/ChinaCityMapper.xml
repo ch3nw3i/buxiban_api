@@ -11,7 +11,7 @@
         <result column="provinceName" property="provinceName" javaType="String"/>
     </resultMap>
 
-    <select id="selectCityListByProvinceId" resultMap="com.buxiban.system.entity.vo.ChinaCityVo">
+    <select id="selectCityListByProvinceId" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select city_id, city_name from china_city
         where province_id = #{provinceId}
     </select>

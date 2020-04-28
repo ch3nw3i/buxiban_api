@@ -1,8 +1,11 @@
 package com.buxiban.system.api;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.buxiban.system.entity.SysDict;
 import com.buxiban.system.entity.SysDictDetail;
 import com.buxiban.system.entity.SysDictWithDetail;
+import com.buxiban.system.service.SysDictDetailService;
 import com.buxiban.system.service.SysDictService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -28,6 +31,9 @@ public class SysDictController {
     @Autowired
     private SysDictService sysDictService;
 
+    @Autowired
+    private SysDictDetailService sysDictDetailService;
+
     @ApiOperation("获取所有字典组及其描述")
     @GetMapping("/list")
     public ResponseEntity<List<SysDict>> list() {
@@ -41,8 +47,10 @@ public class SysDictController {
 
     @ApiOperation("根据字典id获取该组的子项列表")
     @GetMapping("/getById")
-    public ResponseEntity<List<SysDictWithDetail>> getById(@RequestParam Integer id) {
-        List<SysDictWithDetail> list = sysDictService.selectDictGroupWithDetail(id);
+    public ResponseEntity<List<SysDictDetail>> getById(@RequestParam Integer id) {
+        QueryWrapper<SysDictDetail> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda().eq(SysDictDetail::getId, id);
+        List<SysDictDetail> list = sysDictDetailService.list(queryWrapper);
         return ResponseEntity.ok(list);
     }
 }

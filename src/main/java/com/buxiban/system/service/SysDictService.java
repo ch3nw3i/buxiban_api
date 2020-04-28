@@ -13,6 +13,4 @@ import java.util.List;
  * @Date: 2020-04-28 1:00
  */
 public interface SysDictService extends IService<SysDict> {
-
-    List<SysDictWithDetail> selectDictGroupWithDetail(Integer id);
 }

@@ -31,11 +31,4 @@
         </collection>
     </resultMap>
 
-    <select id="selectDictGroupWithDetail" resultMap="SysDictWithDetailMap" parameterType="Integer">
-        select dict.id, dict.group_key, dict.group_value, dict.is_delete, dict.create_time, dict.update_time,
-               detail.id, detail.group_id, detail.`key`, detail.value, detail.is_delete, detail.create_time, detail.update_time
-        from sys_dict dict
-        left join sys_dict_detail detail on dict.id = detail.group_id
-        where dict.id = #{id}
-    </select>
 </mapper>

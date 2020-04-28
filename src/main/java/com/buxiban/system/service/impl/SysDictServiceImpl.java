@@ -18,11 +18,4 @@ import java.util.List;
 @Service
 public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> implements SysDictService {
 
-    @Autowired
-    private SysDictService sysDictService;
-
-    @Override
-    public List<SysDictWithDetail> selectDictGroupWithDetail(Integer id) {
-        return sysDictService.selectDictGroupWithDetail(id);
-    }
 }

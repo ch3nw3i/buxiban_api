@@ -14,5 +14,4 @@ import java.util.List;
  */
 @Mapper
 public interface SysDictMapper extends BaseMapper<SysDict> {
-    List<SysDictWithDetail> selectDictGroupWithDetail(Integer id);
 }
