@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.buxiban.org.mapper.OrgMapper">
+    <resultMap id="BaseResultMap" type="com.buxiban.org.entity.Org">
+        <id column="id" property="id" javaType="Integer"/>
+        <result column="org_code" property="orgCode" javaType="String"/>
+        <result column="name" property="name" javaType="String"/>
+        <result column="principal_user_id" property="principalUserId" javaType="Integer"/>
+        <result column="description" property="description" javaType="String"/>
+        <result column="is_forbid" property="forbid" javaType="Boolean"/>
+        <result column="is_delete" property="delete" javaType="Boolean"/>
+        <result property="createTime" column="create_time" javaType="java.util.Date"/>
+        <result property="updateTime" column="update_time" javaType="java.util.Date"/>
+    </resultMap>
+
+    <update id="setBoolean" parameterType="com.buxiban.common.entity.BooleanPropertySetter">
+        update org set
+        <choose>
+            <when test="setter.name == 'is_delete'">
+                is_delete = #{setter.value}
+            </when>
+            <when test="setter.name == 'is_forbid'">
+                is_forbid = #{setter.value}
+            </when>
+        </choose>
+        where id = #{setter.id}
+    </update>
+</mapper>

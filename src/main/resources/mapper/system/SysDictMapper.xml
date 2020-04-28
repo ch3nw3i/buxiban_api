@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.buxiban.system.mapper.SysDictMapper">
+
+    <resultMap id="BaseResultMap" type="com.buxiban.system.entity.SysDict">
+        <id column="id" property="id" javaType="Integer"/>
+        <result column="group_key" property="groupKey" javaType="String"/>
+        <result column="group_value" property="groupValue" javaType="String"/>
+        <result column="is_delete" property="isDelete" javaType="Boolean"/>
+        <result column="create_time" property="createTime" javaType="java.util.Date"/>
+        <result column="update_time" property="updateTime" javaType="java.util.Date"/>
+    </resultMap>
+
+    <resultMap id="SysDictWithDetailMap" type="com.buxiban.system.entity.SysDictWithDetail">
+        <id column="id" property="id" javaType="Integer"/>
+        <result column="group_key" property="groupKey" javaType="String"/>
+        <result column="group_value" property="groupValue" javaType="String"/>
+        <result column="is_delete" property="isDelete" javaType="Boolean"/>
+        <result column="create_time" property="createTime" javaType="java.util.Date"/>
+        <result column="update_time" property="updateTime" javaType="java.util.Date"/>
+        <collection property="group_detail">
+            <id column="id" property="id" javaType="Integer"/>
+            <result column="dict_group_id" property="dictGroupId" javaType="Integer"/>
+            <result column="key" property="key" javaType="String"/>
+            <result column="value" property="value" javaType="String"/>
+            <result column="is_delete" property="isDelete" javaType="Boolean"/>
+            <result column="create_time" property="createTime" javaType="java.util.Date"/>
+            <result column="update_time" property="updateTime" javaType="java.util.Date"/>
+        </collection>
+    </resultMap>
+
+    <select id="selectDictGroupWithDetail" resultMap="SysDictWithDetailMap" parameterType="Integer">
+        select dict.id, dict.group_key, dict.group_value, dict.is_delete, dict.create_time, dict.update_time,
+               detail.id, detail.group_id, detail.`key`, detail.value, detail.is_delete, detail.create_time, detail.update_time
+        from sys_dict dict
+        left join sys_dict_detail detail on dict.id = detail.group_id
+        where dict.id = #{id}
+    </select>
+</mapper>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.buxiban.system.mapper.ChinaCityMapper">
+
+    <resultMap id="BaseResultMap" type="com.buxiban.system.entity.ChinaCity">
+        <id column="city_id" property="cityId" javaType="Long"/>
+        <result column="city_name" property="cityName" javaType="String"/>
+        <result column="province_id" property="provinceId" javaType="Long"/>
+        <result column="provinceName" property="provinceName" javaType="String"/>
+    </resultMap>
+
+    <select id="selectCityListByProvinceId" resultMap="com.buxiban.system.entity.vo.ChinaCityVo">
+        select city_id, city_name from china_city
+        where province_id = #{provinceId}
+    </select>
+</mapper>
