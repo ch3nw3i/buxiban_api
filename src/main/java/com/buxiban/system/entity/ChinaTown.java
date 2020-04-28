@@ -12,7 +12,7 @@ import java.io.Serializable;
  */
 @Data
 @ApiModel
-public class ChinaRegion implements Serializable {
+public class ChinaTown implements Serializable {
     private Long provinceId;
     private String provinceName;
     private Long cityId;

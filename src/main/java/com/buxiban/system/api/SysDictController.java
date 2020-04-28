@@ -24,7 +24,7 @@ import java.util.List;
  * @Date: 2020-04-28 1:03
  */
 @RestController
-@RequestMapping("/api/sys/dict")
+@RequestMapping("/api/sys")
 @Api(value = "SysDictController", tags = "系统字典")
 public class SysDictController {
 
@@ -35,7 +35,7 @@ public class SysDictController {
     private SysDictDetailService sysDictDetailService;
 
     @ApiOperation("获取所有字典组及其描述")
-    @GetMapping("/list")
+    @GetMapping("/dict/list")
     public ResponseEntity<List<SysDict>> list() {
         List<SysDict> list = sysDictService.list();
         if (list == null || list.size() <= 0) {
@@ -45,12 +45,13 @@ public class SysDictController {
         }
     }
 
-    @ApiOperation("根据字典id获取该组的子项列表")
-    @GetMapping("/getById")
+    @ApiOperation("根据字典组id查询该字典组的子项的列表")
+    @GetMapping("/dict/detail/get/Id")
     public ResponseEntity<List<SysDictDetail>> getById(@RequestParam Integer id) {
-        QueryWrapper<SysDictDetail> queryWrapper = new QueryWrapper<>();
-        queryWrapper.lambda().eq(SysDictDetail::getId, id);
-        List<SysDictDetail> list = sysDictDetailService.list(queryWrapper);
-        return ResponseEntity.ok(list);
+//        QueryWrapper<SysDictDetail> queryWrapper = new QueryWrapper<>();
+//        queryWrapper.lambda().eq(SysDictDetail::getId, id);
+//        List<SysDictDetail> list = sysDictDetailService.list(queryWrapper);
+//        return ResponseEntity.ok(list);
+        return null;
     }
 }

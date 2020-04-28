@@ -1,7 +1,7 @@
 package com.buxiban.system.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.buxiban.system.entity.ChinaRegion;
+import com.buxiban.system.entity.ChinaTown;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -10,5 +10,5 @@ import org.apache.ibatis.annotations.Mapper;
  * @Date: 2020-04-28 20:41
  */
 @Mapper
-public interface ChinaRegionMapper extends BaseMapper<ChinaRegion> {
+public interface ChinaTownMapper extends BaseMapper<ChinaTown> {
 }
