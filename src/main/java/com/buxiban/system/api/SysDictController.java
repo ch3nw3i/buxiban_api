@@ -1,10 +1,8 @@
 package com.buxiban.system.api;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.buxiban.system.entity.SysDict;
 import com.buxiban.system.entity.SysDictDetail;
-import com.buxiban.system.entity.SysDictWithDetail;
 import com.buxiban.system.service.SysDictDetailService;
 import com.buxiban.system.service.SysDictService;
 import io.swagger.annotations.Api;
@@ -35,23 +33,23 @@ public class SysDictController {
     private SysDictDetailService sysDictDetailService;
 
     @ApiOperation("获取所有字典组及其描述")
-    @GetMapping("/dict/list")
+    @GetMapping("/dict/listAll")
     public ResponseEntity<List<SysDict>> list() {
         List<SysDict> list = sysDictService.list();
-        if (list == null || list.size() <= 0) {
-            return ResponseEntity.notFound().build();
-        } else {
+//        if (list == null || list.size() <= 0) {
+//            return ResponseEntity.notFound().build();
+//        } else {
             return ResponseEntity.ok(list);
-        }
+//        }
     }
 
-    @ApiOperation("根据字典组id查询该字典组的子项的列表")
-    @GetMapping("/dict/detail/get/Id")
-    public ResponseEntity<List<SysDictDetail>> getById(@RequestParam Integer id) {
-//        QueryWrapper<SysDictDetail> queryWrapper = new QueryWrapper<>();
-//        queryWrapper.lambda().eq(SysDictDetail::getId, id);
-//        List<SysDictDetail> list = sysDictDetailService.list(queryWrapper);
-//        return ResponseEntity.ok(list);
-        return null;
+    @ApiOperation("根据group id查询该字典组下所有键值对")
+    @GetMapping("/dict/detail/getByGroupId")
+    public ResponseEntity<List<SysDictDetail>> listSysDictDetailByGroupId(@RequestParam Integer groupId) {
+        QueryWrapper<SysDictDetail> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda().eq(SysDictDetail::getGroupId, groupId);
+        List<SysDictDetail> list = sysDictDetailService.list(queryWrapper);
+        return ResponseEntity.ok(list);
+//        return null;
     }
 }

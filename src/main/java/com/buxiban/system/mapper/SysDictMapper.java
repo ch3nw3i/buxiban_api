@@ -2,10 +2,7 @@ package com.buxiban.system.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.buxiban.system.entity.SysDict;
-import com.buxiban.system.entity.SysDictWithDetail;
 import org.apache.ibatis.annotations.Mapper;
-
-import java.util.List;
 
 /**
  * @Package: com.buxiban.system.mapper

@@ -5,7 +5,7 @@
 <mapper namespace="com.buxiban.system.mapper.SysDictDetailMapper">
     <resultMap id="BaseResultMap" type="com.buxiban.system.entity.SysDictDetail">
         <id column="id" property="id" javaType="Integer"/>
-        <result column="dict_group_id" property="dictGroupId" javaType="Integer"/>
+        <result column="group_id" property="groupId" javaType="Integer"/>
         <result column="key" property="key" javaType="String"/>
         <result column="value" property="value" javaType="String"/>
         <result column="is_delete" property="isDelete" javaType="Boolean"/>

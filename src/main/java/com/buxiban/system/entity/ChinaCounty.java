@@ -1,5 +1,7 @@
 package com.buxiban.system.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 
@@ -17,6 +19,7 @@ public class ChinaCounty implements Serializable {
     private String provinceName;
     private Long cityId;
     private String cityName;
+    @TableId(value = "id", type = IdType.AUTO)
     private Long countyId;
     private String countyName;
 

@@ -26,7 +26,7 @@ public class SysDictDetail implements Serializable {
     private Integer id;
 
     @ApiParam("字典组id")
-    private Integer dictGroupId;
+    private Integer groupId;
 
     @ApiParam("字典组子项的键")
     private Integer key;
