@@ -4,7 +4,10 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.buxiban.system.entity.SysDict;
 import com.buxiban.system.mapper.SysDictMapper;
 import com.buxiban.system.service.SysDictService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @Package: com.buxiban.system.service.impl
@@ -14,4 +17,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> implements SysDictService {
 
+    @Autowired
+    private SysDictMapper sysDictMapper;
+
+    @Override
+    public SysDict selectDetailByDictId(Integer id) {
+        return sysDictMapper.selectDetailByDictId(id);
+    }
 }

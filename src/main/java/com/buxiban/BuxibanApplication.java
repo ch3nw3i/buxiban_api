@@ -10,7 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @Date: 2020-04-26 22:18
  */
 @SpringBootApplication
-//@MapperScan("com.buxiban.org.mapper")
+@MapperScan(value = "com.buxiban.**.mapper")
 public class BuxibanApplication {
 
     public static void main(String[] args) {

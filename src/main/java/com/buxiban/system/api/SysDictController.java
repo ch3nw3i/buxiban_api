@@ -7,12 +7,11 @@ import com.buxiban.system.service.SysDictDetailService;
 import com.buxiban.system.service.SysDictService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,8 +21,8 @@ import java.util.List;
  * @Date: 2020-04-28 1:03
  */
 @RestController
-@RequestMapping("/api/sys")
-@Api(value = "SysDictController", tags = "系统字典")
+@RequestMapping("/system/dicts")
+@Api(value = "SysDictController", tags = "字典管理")
 public class SysDictController {
 
     @Autowired
@@ -33,23 +32,29 @@ public class SysDictController {
     private SysDictDetailService sysDictDetailService;
 
     @ApiOperation("获取所有字典组及其描述")
-    @GetMapping("/dict/listAll")
-    public ResponseEntity<List<SysDict>> list() {
-        List<SysDict> list = sysDictService.list();
-//        if (list == null || list.size() <= 0) {
-//            return ResponseEntity.notFound().build();
-//        } else {
-            return ResponseEntity.ok(list);
-//        }
+    @GetMapping("")
+//    @RequiresRoles("admin")
+//    @RequiresPermissions("select")
+    public ResponseEntity<List<SysDict>> listAll() {
+        return ResponseEntity.ok(sysDictService.list());
     }
 
     @ApiOperation("根据group id查询该字典组下所有键值对")
-    @GetMapping("/dict/detail/getByGroupId")
-    public ResponseEntity<List<SysDictDetail>> listSysDictDetailByGroupId(@RequestParam Integer groupId) {
-        QueryWrapper<SysDictDetail> queryWrapper = new QueryWrapper<>();
-        queryWrapper.lambda().eq(SysDictDetail::getGroupId, groupId);
-        List<SysDictDetail> list = sysDictDetailService.list(queryWrapper);
-        return ResponseEntity.ok(list);
-//        return null;
+    @GetMapping("/{groupId}/details")
+    public ResponseEntity<List<SysDictDetail>> listSysDictDetailByGroupId(@PathVariable("groupId") Integer groupId) {
+        // TODO 500 syntax error
+        return null;
+//        QueryWrapper<SysDictDetail> queryWrapper = new QueryWrapper<>();
+//        queryWrapper.lambda().eq(SysDictDetail::getGroupId, groupId);
+//        List<SysDictDetail> list = sysDictDetailService.list(queryWrapper);
+//        if (list == null) {
+//            return ResponseEntity.notFound().build();
+//        }
+//        return ResponseEntity.ok(list);
+//        SysDict sysDict = sysDictService.selectDetailByDictId(groupId);
+//        if (sysDict == null) {
+//            return ResponseEntity.notFound().build();
+//        }
+//        return ResponseEntity.ok(sysDict);
     }
 }

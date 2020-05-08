@@ -2,6 +2,7 @@ package com.buxiban.system.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 
@@ -14,8 +15,9 @@ import java.io.Serializable;
  */
 @Data
 @ApiModel
+@TableName("china_province")
 public class ChinaProvince implements Serializable {
-    @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "province_id", type = IdType.AUTO)
     private Long provinceId;
     private String provinceName;
 }

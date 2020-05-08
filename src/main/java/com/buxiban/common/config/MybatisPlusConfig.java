@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */
 @Configuration
 @EnableTransactionManagement
-@MapperScan("com.buxiban.**.**.mapper")
+@MapperScan("com.buxiban.**.mapper")
 public class MybatisPlusConfig {
 
     public PaginationInterceptor paginationInterceptor() {

@@ -22,20 +22,23 @@ import java.util.List;
  */
 @RestController
 @Api(value = "OrgUserController", tags = "机构用户")
-@RequestMapping("/orgUser")
+@RequestMapping("/org/user")
 public class OrgUserController {
 
     @Autowired
     private OrgUserService orgUserService;
 
-    @GetMapping("/get")
+    @GetMapping("/{id}")
     @ApiOperation("根据id获取机构用户")
-    public ResponseEntity<OrgUser> get(@RequestParam Integer id) {
+    public ResponseEntity<OrgUser> get(@PathVariable("id") Integer id) {
         OrgUser orgUser = orgUserService.getById(id);
+        if (orgUser == null) {
+            return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.ok(orgUser);
     }
 
-    @GetMapping("/list")
+    @GetMapping("")
     @ApiOperation("获取全部机构用户")
     public ResponseEntity<List<OrgUser>> list() {
         List<OrgUser> list = orgUserService.list();
@@ -45,7 +48,7 @@ public class OrgUserController {
         return ResponseEntity.ok(list);
     }
 
-    @PostMapping("/add")
+    @PostMapping("")
     @ApiOperation("创建机构用户")
     public ResponseEntity add(@RequestBody OrgUserDto orgUserDto) {
         OrgUser orgUser = new OrgUser();
@@ -59,19 +62,34 @@ public class OrgUserController {
         }
     }
 
-    @PostMapping("/setBoolean")
-    @ApiOperation("设置机构用户的禁用/删除状态")
-    public ResponseEntity setBoolean(@RequestBody BooleanPropertySetter setter) {
-        boolean result = orgUserService.setBoolean(setter);
+//    //TODO 修改为restful
+//    @PostMapping("/setBoolean")
+//    @ApiOperation("设置机构用户的禁用/删除状态")
+//    public ResponseEntity setBoolean(@RequestBody BooleanPropertySetter setter) {
+//        boolean result = orgUserService.setBoolean(setter);
+//        if (result == true) {
+//            return ResponseEntity.ok(true);
+//        } else {
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+//        }
+//    }
+
+    @PatchMapping("")
+    @ApiOperation("更新机构用户信息（部分字段）")
+    public ResponseEntity<OrgUser> patch(@RequestBody OrgUser orgUser) {
+//        OrgUser orgUser = new OrgUser();
+//        BeanUtil.copyProperties(orgUserDto, orgUser);
+        orgUser.setUpdateTime(new Date());
+        boolean result = orgUserService.updateById(orgUser);
         if (result == true) {
-            return ResponseEntity.ok(true);
+            return ResponseEntity.ok(orgUser);
         } else {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }
 
-    @PutMapping("/update")
-    @ApiOperation("更新机构用户信息")
+    @PutMapping("")
+    @ApiOperation("更新机构用户信息（全部字段）")
     public ResponseEntity update(@RequestBody OrgUserDto orgUserDto) {
         OrgUser orgUser = new OrgUser();
         BeanUtil.copyProperties(orgUserDto, orgUser);

@@ -13,10 +13,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,7 +25,7 @@ import java.util.List;
  * @Date: 2020-04-28 20:49
  */
 @RestController
-@RequestMapping("/api/china")
+@RequestMapping("/china")
 @Api(value = "ChinaAreaController", tags = "中国行政区划")
 public class ChinaAreaController {
     @Autowired
@@ -41,65 +38,65 @@ public class ChinaAreaController {
     private ChinaTownService chinaTownService;
 
     @ApiOperation("获取province列表")
-    @GetMapping("/province/listAll")
+    @GetMapping("/province")
     public ResponseEntity<List<ChinaProvince>> listProvince() {
         List<ChinaProvince> list = chinaProvinceService.list();
         return ResponseEntity.ok(list);
     }
 
     @ApiOperation("根据province id精确查询city列表")
-    @GetMapping("/city/list/byProvinceId")
-    public ResponseEntity<List<ChinaCity>> listCityByProvinceId(@RequestParam Long provinceId) {
+    @GetMapping("/province/{provinceId}")
+    public ResponseEntity<List<ChinaCity>> listCityByProvinceId(@PathVariable("provinceId") Long provinceId) {
         QueryWrapper<ChinaCity> queryWrapper = new QueryWrapper<>();
         queryWrapper.lambda().eq(ChinaCity::getProvinceId, provinceId);
         List<ChinaCity> list = chinaCityService.list(queryWrapper);
         return ResponseEntity.ok(list);
     }
 
-    @ApiOperation("根据province name模糊查询city列表")
-    @GetMapping("/city/list/byProvinceName")
-    public ResponseEntity<List<ChinaCity>> listCityByProvinceName(@RequestParam String provinceName) {
-        QueryWrapper<ChinaCity> queryWrapper = new QueryWrapper<>();
-        queryWrapper.lambda().like(ChinaCity::getProvinceName, provinceName);
-        List<ChinaCity> list = chinaCityService.list(queryWrapper);
-        return ResponseEntity.ok(list);
-    }
+//    @ApiOperation("根据province name模糊查询city列表")
+//    @GetMapping("/province/search/provinceName/{provinceName}")
+//    public ResponseEntity<List<ChinaCity>> listCityByProvinceName(@PathVariable("provinceName") String provinceName) {
+//        QueryWrapper<ChinaCity> queryWrapper = new QueryWrapper<>();
+//        queryWrapper.lambda().like(ChinaCity::getProvinceName, provinceName);
+//        List<ChinaCity> list = chinaCityService.list(queryWrapper);
+//        return ResponseEntity.ok(list);
+//    }
 
     @ApiOperation("根据city id精确查询county列表")
-    @GetMapping("/county/list/byCityId")
-    public ResponseEntity<List<ChinaCounty>> listCountyByCountyId(@RequestParam Long cityId) {
+    @GetMapping("/city/{cityId}")
+    public ResponseEntity<List<ChinaCounty>> listCountyByCountyId(@PathVariable("cityId") Long cityId) {
         QueryWrapper<ChinaCounty> queryWrapper = new QueryWrapper<>();
         queryWrapper.lambda().eq(ChinaCounty::getCityId, cityId);
         List<ChinaCounty> list = chinaCountyService.list(queryWrapper);
         return ResponseEntity.ok(list);
     }
 
-    @ApiOperation("根据city name模糊查询county列表")
-    @GetMapping("/county/list/byCityName")
-    public ResponseEntity<List<ChinaCounty>> listCityByCountyName(@RequestParam String cityName) {
-        QueryWrapper<ChinaCounty> queryWrapper = new QueryWrapper<>();
-        queryWrapper.lambda().like(ChinaCounty::getCityName, cityName);
-        List<ChinaCounty> list = chinaCountyService.list(queryWrapper);
-        return ResponseEntity.ok(list);
-    }
-
+//    @ApiOperation("根据city name模糊查询county列表")
+//    @GetMapping("/city/name/{cityName}/county")
+//    public ResponseEntity<List<ChinaCounty>> listCityByCountyName(@PathVariable("cityName") String cityName) {
+//        QueryWrapper<ChinaCounty> queryWrapper = new QueryWrapper<>();
+//        queryWrapper.lambda().like(ChinaCounty::getCityName, cityName);
+//        List<ChinaCounty> list = chinaCountyService.list(queryWrapper);
+//        return ResponseEntity.ok(list);
+//    }
+//
 
     @ApiOperation("根据county id精确查询town列表")
-    @GetMapping("/town/list/byCountyId")
-    public ResponseEntity<List<ChinaTown>> listTownByTownId(@RequestParam Long countyId) {
+    @GetMapping("/county/{countyId}")
+    public ResponseEntity<List<ChinaTown>> listTownByTownId(@PathVariable("countyId") Long countyId) {
         QueryWrapper<ChinaTown> queryWrapper = new QueryWrapper<>();
         queryWrapper.lambda().eq(ChinaTown::getCountyId, countyId);
         List<ChinaTown> list = chinaTownService.list(queryWrapper);
         return ResponseEntity.ok(list);
     }
 
-    @ApiOperation("根据county name模糊查询town列表")
-    @GetMapping("/town/list/byCountyName")
-    public ResponseEntity<List<ChinaTown>> listTownByTownName(@RequestParam String countyName) {
-        QueryWrapper<ChinaTown> queryWrapper = new QueryWrapper<>();
-        queryWrapper.lambda().like(ChinaTown::getCountyName, countyName);
-        List<ChinaTown> list = chinaTownService.list(queryWrapper);
-        return ResponseEntity.ok(list);
-    }
+//    @ApiOperation("根据county name模糊查询town列表")
+//    @GetMapping("/county/name/{countyName}/town")
+//    public ResponseEntity<List<ChinaTown>> listTownByTownName(@PathVariable("countyName") String countyName) {
+//        QueryWrapper<ChinaTown> queryWrapper = new QueryWrapper<>();
+//        queryWrapper.lambda().like(ChinaTown::getCountyName, countyName);
+//        List<ChinaTown> list = chinaTownService.list(queryWrapper);
+//        return ResponseEntity.ok(list);
+//    }
 
 }

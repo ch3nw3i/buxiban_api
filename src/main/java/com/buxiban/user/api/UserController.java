@@ -10,13 +10,10 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -35,7 +32,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/listAll")
+    @GetMapping("")
     @ApiOperation("获取所有用户")
     public ResponseEntity<List<UserVo>> list() {
         List<User> userList = userService.list();
@@ -48,9 +45,9 @@ public class UserController {
         return ResponseEntity.ok(userVoArrayList);
     }
 
-    @GetMapping("/get/id")
+    @GetMapping("/{id}")
     @ApiOperation("根据id获取用户信息")
-    public ResponseEntity<UserVo> getById(@RequestParam Integer id) {
+    public ResponseEntity<UserVo> getById(@PathVariable("id") Integer id) {
         User user = userService.getById(id);
         if (user == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -58,5 +55,20 @@ public class UserController {
         UserVo userVo = new UserVo();
         BeanUtil.copyProperties(user, userVo);
         return ResponseEntity.ok(userVo);
+    }
+
+    @PostMapping("")
+    @ApiOperation("新增一个用户")
+    public ResponseEntity createUser(@RequestBody User user) {
+        if (user == null) {
+            return ResponseEntity.badRequest().build();
+        }
+        user.setCreateTime(new Date());
+        boolean result = userService.save(user);
+        if (result) {
+            return ResponseEntity.ok(user);
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 }

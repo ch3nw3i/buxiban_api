@@ -11,6 +11,5 @@ import org.springframework.stereotype.Repository;
  * @Date: 2020-04-28 20:39
  */
 @Mapper
-@Repository
 public interface ChinaProvinceMapper extends BaseMapper<ChinaProvince> {
 }

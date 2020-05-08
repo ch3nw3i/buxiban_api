@@ -2,8 +2,10 @@ server:
   port: 8080
 
 spring:
+#  application:
+#    name: buxiban_api
   datasource:
-    url: jdbc:mysql://localhost:3306/buxiban_dev?characterEncoding=utf8
+    url: jdbc:mysql://localhost:3306/buxiban_dev?useUnicode=true&characterEncoding=UTF-8&useSSL=false
     username: root
     password: 123456
     driver-class-name: com.mysql.jdbc.Driver
@@ -13,4 +15,6 @@ debug: true
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # mp console sql
-  mapper-locations: classpath:mapper/*.xml
+    map-underscore-to-camel-case: true
+  type-aliases-package: com.buxiban.**.entity
+  mapper-locations: classpath:mapper/**/*Mapper.xml

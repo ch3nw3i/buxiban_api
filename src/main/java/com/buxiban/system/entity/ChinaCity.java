@@ -17,7 +17,7 @@ import java.io.Serializable;
 public class ChinaCity implements Serializable {
     private Long provinceId;
     private String provinceName;
-    @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "city_id", type = IdType.AUTO)
     private Long cityId;
     private String cityName;
 }

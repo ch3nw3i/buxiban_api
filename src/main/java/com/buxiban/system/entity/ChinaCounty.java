@@ -19,7 +19,7 @@ public class ChinaCounty implements Serializable {
     private String provinceName;
     private Long cityId;
     private String cityName;
-    @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "county_id", type = IdType.AUTO)
     private Long countyId;
     private String countyName;
 

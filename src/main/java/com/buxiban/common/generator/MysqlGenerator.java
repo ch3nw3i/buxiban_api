@@ -42,7 +42,7 @@ public class MysqlGenerator {
         // 包配置
         PackageConfig pc = new PackageConfig();
         //自定义模块名
-        final String moduleName="user";
+        final String moduleName="system";
         pc.setModuleName(moduleName);
         pc.setParent("com.buxiban");//《==== 包名（自己手动设置）
         mpg.setPackageInfo(pc);
@@ -80,7 +80,7 @@ public class MysqlGenerator {
         //控制层自动继承父类BaseController,不需要也可以
 //        strategy.setSuperControllerClass("com.baomidou.ant.common.BaseController");
         //设置要被扫描的表名
-        strategy.setInclude("user_parent");
+        strategy.setInclude("sys_user", "sys_role", "sys_permission", "sys_user_role", "sys_role_permission");
 //        strategy.setSuperEntityColumns("id");
         strategy.setControllerMappingHyphenStyle(true);
 //        strategy.setTablePrefix(pc.getModuleName() + "_");

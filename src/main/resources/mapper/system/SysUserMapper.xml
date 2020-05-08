@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.buxiban.system.mapper.SysUserMapper">
+
+    <resultMap id="BaseResultMap" type="com.buxiban.system.entity.SysUser">
+        <id column="id" property="id" javaType="java.lang.Integer"/>
+        <result column="username" property="username" javaType="java.lang.String"/>
+        <result column="password" property="password" javaType="java.lang.String"/>
+        <result column="salt" property="salt" javaType="java.lang.String"/>
+        <result column="is_forbid" property="isForbid" javaType="java.lang.Boolean"/>
+        <result column="is_delete" property="isDelete" javaType="java.lang.Boolean"/>
+        <result column="create_time" property="createTime" javaType="java.util.Date"/>
+        <result column="update_time" property="updateTime" javaType="java.util.Date"/>
+    </resultMap>
+
+    <resultMap id="SysUserMap" type="com.buxiban.system.entity.SysUser">
+        <id column="id" property="id" javaType="java.lang.Integer"/>
+        <result column="username" property="username" javaType="java.lang.String"/>
+        <result column="password" property="password" javaType="java.lang.String"/>
+        <result column="salt" property="salt" javaType="java.lang.String"/>
+        <result column="is_forbid" property="isForbid" javaType="java.lang.Boolean"/>
+        <result column="is_delete" property="isDelete" javaType="java.lang.Boolean"/>
+        <result column="create_time" property="createTime" javaType="java.util.Date"/>
+        <result column="update_time" property="updateTime" javaType="java.util.Date"/>
+
+        <collection property="roles" ofType="com.buxiban.system.entity.SysRole">
+            <id column="rid" property="id" javaType="java.lang.Integer"/>
+            <result column="role" property="role" javaType="java.lang.String"/>
+            <result column="description" property="description" javaType="java.lang.String"/>
+            <result column="parent_id" property="parentId" javaType="java.lang.Integer"/>
+            <result column="r_is_forbid" property="isForbid" javaType="java.lang.Boolean"/>
+            <result column="r_create_time" property="createTime" javaType="java.util.Date"/>
+            <result column="r_update_time" property="updateTime" javaType="java.util.Date"/>
+
+<!--            <collection property="permissions" ofType="com.buxiban.system.entity.SysPermission">-->
+<!--                <id column="pid" property="id" javaType="Integer"/>-->
+<!--                <result column="permission" property="permission" javaType="String"/>-->
+<!--                <result column="p_desc" property="description" javaType="String"/>-->
+<!--                <result column="p_is_forbid" property="isForbid" javaType="java.lang.Boolean"/>-->
+<!--                <result column="p_create_time" property="createTime" javaType="java.util.Date"/>-->
+<!--                <result column="p_update_time" property="updateTime" javaType="java.util.Date"/>-->
+<!--            </collection>-->
+        </collection>
+    </resultMap>
+
+
+    <select id="getSysUserByUsername" parameterType="String" resultMap="SysUserMap">
+        SELECT u.id,
+               u.username,
+               u.`password`,
+               u.salt,
+               u.is_forbid,
+               u.is_delete,
+               u.create_time,
+               u.update_time,
+               r.id          as rid,
+               r.role,
+               r.description,
+               r.parent_id,
+               r.is_forbid   as r_is_forbid,
+               r.create_time as r_create_time,
+               r.update_time as r_update_time
+        FROM sys_user u
+                 LEFT JOIN sys_user_role ur on ur.user_id = u.id
+                 LEFT JOIN sys_role r on ur.role_id = r.id
+        WHERE u.username = #{username}
+
+    </select>
+</mapper>

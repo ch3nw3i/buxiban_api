@@ -21,7 +21,7 @@ public class ChinaTown implements Serializable {
     private String cityName;
     private Long countyId;
     private String countyName;
-    @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "town_id", type = IdType.AUTO)
     private Long townId;
     private String townName;
 

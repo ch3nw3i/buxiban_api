@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.buxiban.system.mapper.SysRolePermissionMapper">
+
+    <resultMap id="RolePermissionMap" type="com.buxiban.system.entity.SysRolePermission">
+        <id column="id" property="id" javaType="Integer"/>
+        <result column="role_id" property="roleId" javaType="Integer"/>
+        <result column="permission_id" property="permissionId" javaType="Integer"/>
+    </resultMap>
+</mapper>
