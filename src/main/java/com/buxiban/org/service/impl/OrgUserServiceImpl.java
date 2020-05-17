@@ -1,7 +1,6 @@
 package com.buxiban.org.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.buxiban.common.entity.BooleanPropertySetter;
 import com.buxiban.org.entity.OrgUser;
 import com.buxiban.org.mapper.OrgUserMapper;
 import com.buxiban.org.service.OrgUserService;
@@ -20,8 +19,4 @@ public class OrgUserServiceImpl extends ServiceImpl<OrgUserMapper, OrgUser> impl
     private OrgUserMapper orgUserMapper;
 
 
-    @Override
-    public boolean setBoolean(BooleanPropertySetter setter) {
-        return orgUserMapper.setBoolean(setter) == 1 ? true : false;
-    }
 }

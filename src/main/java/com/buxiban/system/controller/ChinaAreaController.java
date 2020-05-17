@@ -1,4 +1,4 @@
-package com.buxiban.system.api;
+package com.buxiban.system.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.buxiban.system.entity.ChinaCity;
@@ -53,14 +53,14 @@ public class ChinaAreaController {
         return ResponseEntity.ok(list);
     }
 
-//    @ApiOperation("根据province name模糊查询city列表")
-//    @GetMapping("/province/search/provinceName/{provinceName}")
-//    public ResponseEntity<List<ChinaCity>> listCityByProvinceName(@PathVariable("provinceName") String provinceName) {
-//        QueryWrapper<ChinaCity> queryWrapper = new QueryWrapper<>();
-//        queryWrapper.lambda().like(ChinaCity::getProvinceName, provinceName);
-//        List<ChinaCity> list = chinaCityService.list(queryWrapper);
-//        return ResponseEntity.ok(list);
-//    }
+    @ApiOperation("根据province name模糊查询city列表")
+    @GetMapping("/province/search")
+    public ResponseEntity<List<ChinaCity>> listCityByProvinceName(@RequestParam("province_name") String provinceName) {
+        QueryWrapper<ChinaCity> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda().like(ChinaCity::getProvinceName, provinceName);
+        List<ChinaCity> list = chinaCityService.list(queryWrapper);
+        return ResponseEntity.ok(list);
+    }
 
     @ApiOperation("根据city id精确查询county列表")
     @GetMapping("/city/{cityId}")

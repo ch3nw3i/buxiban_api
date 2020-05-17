@@ -1,7 +1,6 @@
-package com.buxiban.user.api;
+package com.buxiban.user.controller;
 
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;

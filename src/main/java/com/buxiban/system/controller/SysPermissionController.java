@@ -1,7 +1,6 @@
-package com.buxiban.system.api;
+package com.buxiban.system.controller;
 
 
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.buxiban.system.entity.SysPermission;
 import com.buxiban.system.service.SysPermissionService;
 import io.swagger.annotations.Api;
@@ -11,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
 import java.util.List;
 
 /**

@@ -1,7 +1,10 @@
-package com.buxiban.org.api;
+package com.buxiban.org.controller;
 
 import cn.hutool.core.bean.BeanUtil;
-import com.buxiban.common.entity.BooleanPropertySetter;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.buxiban.org.entity.OrgUser;
 import com.buxiban.org.entity.dto.OrgUserDto;
 import com.buxiban.org.service.OrgUserService;
@@ -13,7 +16,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
-import java.util.List;
 
 /**
  * @Package: com.buxiban.org.api
@@ -38,14 +40,12 @@ public class OrgUserController {
         return ResponseEntity.ok(orgUser);
     }
 
-    @GetMapping("")
-    @ApiOperation("获取全部机构用户")
-    public ResponseEntity<List<OrgUser>> list() {
-        List<OrgUser> list = orgUserService.list();
-        if (list == null || list.size() <= 0) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(list);
+    @GetMapping("search")
+    @ApiOperation("机构用户 分页查询 列表")
+    public ResponseEntity list(@RequestParam("current") Integer current, @RequestParam("size") Integer size) {
+        Page<OrgUser> page = new Page<>(current, size);
+        IPage<OrgUser> orgUserIPage = orgUserService.page(page);
+        return ResponseEntity.ok(orgUserIPage);
     }
 
     @PostMapping("")
@@ -62,29 +62,15 @@ public class OrgUserController {
         }
     }
 
-//    //TODO 修改为restful
-//    @PostMapping("/setBoolean")
-//    @ApiOperation("设置机构用户的禁用/删除状态")
-//    public ResponseEntity setBoolean(@RequestBody BooleanPropertySetter setter) {
-//        boolean result = orgUserService.setBoolean(setter);
-//        if (result == true) {
-//            return ResponseEntity.ok(true);
-//        } else {
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-//        }
-//    }
-
     @PatchMapping("")
     @ApiOperation("更新机构用户信息（部分字段）")
-    public ResponseEntity<OrgUser> patch(@RequestBody OrgUser orgUser) {
-//        OrgUser orgUser = new OrgUser();
-//        BeanUtil.copyProperties(orgUserDto, orgUser);
+    public ResponseEntity patch(@RequestBody OrgUser orgUser) {
         orgUser.setUpdateTime(new Date());
-        boolean result = orgUserService.updateById(orgUser);
-        if (result == true) {
-            return ResponseEntity.ok(orgUser);
+        boolean update = orgUserService.updateById(orgUser);
+        if (update) {
+            return ResponseEntity.ok(true);
         } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 

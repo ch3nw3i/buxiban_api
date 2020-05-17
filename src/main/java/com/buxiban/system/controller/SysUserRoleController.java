@@ -1,4 +1,4 @@
-package com.buxiban.system.api;
+package com.buxiban.system.controller;
 
 
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2020-04-30
  */
 @RestController
-@RequestMapping("/system/sys-role-permission")
-public class SysRolePermissionController {
+@RequestMapping("/system/sys-user-role")
+public class SysUserRoleController {
 
 }

@@ -1,8 +1,6 @@
 package com.buxiban.system.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiParam;
 import lombok.Data;
@@ -35,7 +33,10 @@ public class SysDictDetail implements Serializable {
     private String value;
 
     private Boolean isDelete = false;
+    @TableField(fill = FieldFill.INSERT)
     private Date createTime;
+
+    @TableField(fill = FieldFill.UPDATE)
     private Date updateTime;
 
 }

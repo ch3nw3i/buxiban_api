@@ -1,4 +1,4 @@
-package com.buxiban.user.api;
+package com.buxiban.user.controller;
 
 
 import cn.hutool.core.bean.BeanUtil;
@@ -63,7 +63,6 @@ public class UserController {
         if (user == null) {
             return ResponseEntity.badRequest().build();
         }
-        user.setCreateTime(new Date());
         boolean result = userService.save(user);
         if (result) {
             return ResponseEntity.ok(user);

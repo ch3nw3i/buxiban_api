@@ -1,9 +1,7 @@
-package com.buxiban.user.api;
+package com.buxiban.user.controller;
 
 
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.buxiban.user.entity.UserStudent;
-import com.buxiban.user.service.UserService;
 import com.buxiban.user.service.UserStudentService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -51,7 +49,6 @@ public class UserStudentController {
         if (userStudent == null) {
             return ResponseEntity.badRequest().build();
         }
-        userStudent.setCreateTime(new Date());
         boolean result = userStudentService.save(userStudent);
         if (result) {
             return ResponseEntity.ok(userStudent);
@@ -66,7 +63,6 @@ public class UserStudentController {
         if (userStudent == null) {
             return ResponseEntity.badRequest().build();
         }
-        userStudent.setUpdateTime(new Date());
         boolean result = userStudentService.updateById(userStudent);
         if (result) {
             return ResponseEntity.ok(userStudent);

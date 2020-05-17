@@ -1,9 +1,9 @@
 package com.buxiban.org.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.buxiban.org.entity.OrgCourse;
 import com.buxiban.org.entity.OrgUser;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -13,6 +13,6 @@ import org.springframework.stereotype.Repository;
  */
 @Mapper
 @Repository
-public interface OrgUserMapper extends BaseMapper<OrgUser> {
+public interface OrgCourseMapper extends BaseMapper<OrgCourse> {
 
 }

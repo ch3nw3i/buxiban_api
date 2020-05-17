@@ -4,9 +4,7 @@ import java.time.LocalDateTime;
 import java.io.Serializable;
 import java.util.Date;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -29,6 +27,8 @@ public class User implements Serializable {
 
     private String username;
 
+    private String nickname;
+
     private String password;
 
     private String salt;
@@ -39,8 +39,10 @@ public class User implements Serializable {
 
     private String avatarUrl;
 
+    @TableField(fill = FieldFill.INSERT)
     private Date createTime;
 
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date updateTime;
 
 

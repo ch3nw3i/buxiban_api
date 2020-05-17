@@ -16,7 +16,7 @@ import java.util.List;
  * @Author: ch3nw3i@github
  * @Date: 2020-04-29 7:58
  */
-public class MysqlGenerator {
+public class MybatisPlusGenerator {
 
     public static void main(String[] args) {
         // 代码生成器

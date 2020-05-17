@@ -1,4 +1,4 @@
-package com.buxiban.user.api;
+package com.buxiban.user.controller;
 
 
 import com.buxiban.user.entity.UserParent;
@@ -51,7 +51,6 @@ public class UserParentController {
         if (userParent.equals(null)) {
             return ResponseEntity.badRequest().build();
         }
-        userParent.setCreateTime(new Date());
         boolean result = userParentService.save(userParent);
         if (!result) {
             return ResponseEntity.badRequest().build();

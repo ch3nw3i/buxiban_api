@@ -1,8 +1,6 @@
 package com.buxiban.system.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.*;
 
 import java.time.LocalDateTime;
 import java.io.Serializable;
@@ -10,7 +8,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
-import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -47,8 +44,10 @@ public class SysRole implements Serializable {
 
     private Boolean isForbid;
 
+    @TableField(fill = FieldFill.INSERT)
     private Date createTime;
 
+    @TableField(fill = FieldFill.UPDATE)
     private Date updateTime;
 
     @TableField(exist = false)

@@ -1,8 +1,6 @@
-package com.buxiban.system.api;
+package com.buxiban.system.controller;
 
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.buxiban.system.entity.SysPermission;
 import com.buxiban.system.entity.SysRole;
 import com.buxiban.system.service.SysPermissionService;
 import com.buxiban.system.service.SysRoleService;
@@ -17,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * <p>

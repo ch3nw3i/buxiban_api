@@ -1,14 +1,11 @@
-package com.buxiban.system.api;
+package com.buxiban.system.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.buxiban.system.entity.SysDict;
 import com.buxiban.system.entity.SysDictDetail;
 import com.buxiban.system.service.SysDictDetailService;
 import com.buxiban.system.service.SysDictService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

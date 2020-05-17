@@ -1,13 +1,15 @@
-package com.buxiban.org.api;
+package com.buxiban.org.controller;
 
-import com.buxiban.common.entity.BooleanPropertySetter;
+import cn.hutool.core.collection.CollectionUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.buxiban.org.entity.Org;
 import com.buxiban.org.entity.dto.OrgDto;
-import com.buxiban.org.entity.dto.OrgUpdateDto;
 import com.buxiban.org.service.OrgService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 //import org.springframework.beans.BeanUtils;\
 import cn.hutool.core.bean.BeanUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -31,15 +34,12 @@ public class OrgController {
     @Autowired
     private OrgService orgService;
 
-    @GetMapping("")
-    @ApiOperation("获取全部培训机构")
-    public ResponseEntity list() {
-        List<Org> list = orgService.list();
-        if (list == null || list.size() <= 0) {
-            return ResponseEntity.notFound().build();
-        } else {
-            return ResponseEntity.ok(list);
-        }
+    @GetMapping("search")
+    @ApiOperation("培训机构 分页查询 列表")
+    public ResponseEntity list(@RequestParam("current") Integer current, @RequestParam("size") Integer size) {
+        Page<Org> page = new Page<>(current, size);
+        IPage<Org> orgIPage = orgService.page(page);
+        return ResponseEntity.ok(orgIPage);
     }
 
     @GetMapping("/{orgId}")
@@ -59,7 +59,6 @@ public class OrgController {
     public ResponseEntity add(@RequestBody OrgDto orgDto) {
         Org org = new Org();
         BeanUtil.copyProperties(orgDto, org);
-        org.setCreateTime(new Date());
         boolean result = orgService.save(org);
         if (result == true) {
             return ResponseEntity.ok(org);
@@ -71,7 +70,6 @@ public class OrgController {
     @PatchMapping("")
     @ApiOperation("更新培训机构信息（部分字段）")
     public ResponseEntity patch(@RequestBody Org org) {
-        org.setUpdateTime(new Date());
         boolean result = orgService.updateById(org);
         if (result == true) {
             return ResponseEntity.ok(true);
@@ -83,9 +81,6 @@ public class OrgController {
     @PutMapping("")
     @ApiOperation("更新培训机构信息（全部字段）")
     public ResponseEntity update(@RequestBody Org org) {
-//        Org org = new Org();
-//        BeanUtil.copyProperties(orgUpdateDto, org);
-        org.setUpdateTime(new Date());
         boolean result = orgService.updateById(org);
         if (result == true) {
             return ResponseEntity.ok(org);

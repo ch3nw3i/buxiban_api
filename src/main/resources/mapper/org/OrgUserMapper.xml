@@ -19,16 +19,4 @@
     </resultMap>
 
 
-    <update id="setBoolean" parameterType="com.buxiban.common.entity.BooleanPropertySetter">
-        update org_user set
-        <choose>
-            <when test="setter.name == 'is_delete'">
-                is_delete = #{setter.value}
-            </when>
-            <when test="setter.name == 'is_forbid'">
-                is_forbid = #{setter.value}
-            </when>
-        </choose>
-        where id = #{setter.id}
-    </update>
 </mapper>
