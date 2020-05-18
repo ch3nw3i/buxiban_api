@@ -20,8 +20,8 @@ import java.util.Arrays;
  * @Author: ch3nw3i@github
  * @Date: 2020-05-14 21:34
  */
-@Aspect
-@Component
+//@Aspect
+//@Component
 public class LogAspect {
 
     private final Logger logger = LoggerFactory.getLogger(LogAspect.class);
