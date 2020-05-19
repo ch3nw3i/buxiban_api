@@ -23,8 +23,8 @@ import java.util.UUID;
  * @Author: ch3nw3i@github
  * @Date: 2020-05-18 20:04
  */
-@Aspect
-@Component
+//@Aspect
+//@Component
 public class LogAspect {
 
     @Autowired
@@ -45,15 +45,15 @@ public class LogAspect {
     @Around("operationLog()")
     public Object doAround(ProceedingJoinPoint joinPoint) throws Throwable {
         Object res = null;
-        long time = System.currentTimeMillis();
+//        long time = System.currentTimeMillis();
         try {
             res = joinPoint.proceed();
-            time = System.currentTimeMillis() - time;
+//            time = System.currentTimeMillis() - time;
             return res;
         } finally {
             try {
                 //方法执行完成后增加日志
-                addOperationLog(joinPoint, res, time);
+                addOperationLog(joinPoint, res);
             } catch (Exception e) {
                 System.out.println("### LogAspect 操作失败：" + e.getMessage());
                 e.printStackTrace();
@@ -61,14 +61,14 @@ public class LogAspect {
         }
     }
 
-    private void addOperationLog(JoinPoint joinPoint, Object res, long time) {
+    private void addOperationLog(JoinPoint joinPoint, Object response) {
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         OperationLog operationLog = new OperationLog();
-        operationLog.setRunTime(time);
-        operationLog.setReturnValue(JSON.toJSONString(res));
+//        operationLog.setRunTime(time);
+        operationLog.setReturnValue(JSON.toJSONString(response));
         operationLog.setId(UUID.randomUUID().toString());
         operationLog.setArgs(JSON.toJSONString(joinPoint.getArgs()));
-        operationLog.setCreateTime(new Date());
+//        operationLog.setCreateTime(new Date());
         operationLog.setMethod(signature.getDeclaringTypeName() + "." + signature.getName());
         operationLog.setUserId("#{currentUserId}");
         operationLog.setUserName("#{currentUserName}");
@@ -77,7 +77,7 @@ public class LogAspect {
             operationLog.setOperationType(annotation.operationType().getValue());
             operationLog.setOperationUnit(annotation.operationUnit().getValue());
         }
-        //TODO 这里保存日志
+        //TODO 这里保存日志到 DB
         System.out.println("### 记录日志:" + operationLog.toString());
         operationLogService.save(operationLog);
     }

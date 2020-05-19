@@ -9,6 +9,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,11 +32,12 @@ public class CompareObject {
         contrastObj(oldOrgUser, newOrgUser, OrgUser.class);
     }
 
-    public static void contrastObj(Object oldObj, Object newObj, Class cls) {
+    public static Map<String, String> contrastObj(Object oldObj, Object newObj, Class cls) {
         if (oldObj.getClass() == newObj.getClass()) {
             OrgUser oldOrgUser = (OrgUser) oldObj;
             OrgUser newOrgUser = (OrgUser) newObj;
             List<String> textList = Lists.newArrayList();
+            Map<String, String> map = new LinkedHashMap<>();
             try {
                 Class<?> aClass = oldOrgUser.getClass();
                 Field[] fields = oldOrgUser.getClass().getDeclaredFields();
@@ -47,6 +49,7 @@ public class CompareObject {
                     String s1 = (o1 == null) ? "" : o1.toString();
                     String s2 = (o2 == null) ? "" : o2.toString();
                     if (!s1.equals(s2)) {
+                        map.put(field.getName(), s2);
                         textList.add("[UPDATE] Field: " + field.getName() + " | VALUE：" + s1 + " => " + s2 + "");
                     }
                 }
@@ -59,6 +62,9 @@ public class CompareObject {
             for (Object object : textList) {
                 System.out.println(object);
             }
+            return map;
+        } else {
+            return null;
         }
     }
 //    public static void contrastObj(Object oldObj, Object newObj) {

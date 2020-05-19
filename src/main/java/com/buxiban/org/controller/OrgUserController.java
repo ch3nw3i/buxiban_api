@@ -4,12 +4,17 @@ import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.buxiban.common.utils.CompareObject;
 import com.buxiban.system.annotation.OperationLogDetail;
+import com.buxiban.system.annotation.UpdateLogDetail;
+import com.buxiban.system.entity.UpdateLog;
 import com.buxiban.system.enums.OperationType;
 import com.buxiban.system.enums.OperationUnit;
 import com.buxiban.org.entity.OrgUser;
 import com.buxiban.org.entity.dto.OrgUserDto;
 import com.buxiban.org.service.OrgUserService;
+import com.buxiban.system.enums.UpdateTable;
+import com.buxiban.system.service.UpdateLogService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.beanutils.BeanUtilsBean;
@@ -19,6 +24,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @Package: com.buxiban.org.api
@@ -32,6 +39,10 @@ public class OrgUserController {
 
     @Autowired
     private OrgUserService orgUserService;
+
+    @Autowired
+    private UpdateLogService updateLogService;
+
 
     @OperationLogDetail(detail = "通过机构用户id[{{id}}]获取机构用户信息",
             operationUnit = OperationUnit.ORG_USER, operationType = OperationType.SELECT)
@@ -60,7 +71,6 @@ public class OrgUserController {
     public ResponseEntity add(@RequestBody OrgUserDto orgUserDto) {
         OrgUser orgUser = new OrgUser();
         BeanUtil.copyProperties(orgUserDto, orgUser);
-        orgUser.setCreateTime(new Date());
         boolean result = orgUserService.save(orgUser);
         if (result == true) {
             return ResponseEntity.ok(orgUser);
@@ -69,13 +79,13 @@ public class OrgUserController {
         }
     }
 
-    @OperationLogDetail(detail = "根据org user更新机构用户信息",
+    @OperationLogDetail(detail = "根据org user更新机构用户信息（部分）",
             operationUnit = OperationUnit.ORG_USER, operationType = OperationType.UPDATE)
     @PatchMapping("")
     @ApiOperation("更新机构用户信息（部分字段）")
     public ResponseEntity patch(@RequestBody OrgUser orgUser) {
         // TODO 修改留痕操作：在update前select，对比旧值与新值，将变化的字段和值存入变更记录表
-        OrgUser oldOrgUser = orgUserService.getOne(new LambdaQueryWrapper<OrgUser>().eq(OrgUser::getId, orgUser.getId()));
+//        OrgUser oldOrgUser = orgUserService.getOne(new LambdaQueryWrapper<OrgUser>().eq(OrgUser::getId, orgUser.getId()));
 
         boolean update = orgUserService.updateById(orgUser);
         if (update) {
@@ -85,13 +95,27 @@ public class OrgUserController {
         }
     }
 
+//    @OperationLogDetail(detail = "根据org user更新机构用户信息（全部）",
+//            operationUnit = OperationUnit.ORG_USER, operationType = OperationType.UPDATE)
+    @UpdateLogDetail(detail = "根据org user更新机构用户的全部信息", updatetTable = UpdateTable.ORG_USER)
     @PutMapping("")
     @ApiOperation("更新机构用户信息（全部字段）")
     public ResponseEntity update(@RequestBody OrgUserDto orgUserDto) {
+        // TODO 数据更新留痕：获取 updateLog表 该id
+//        String tableName = "org_user";
+//        int count = updateLogService.count(new LambdaQueryWrapper<UpdateLog>().eq(UpdateLog::getFkId, orgUserDto.getId())
+//                    .eq(UpdateLog::getTableName, tableName));
+//        OrgUser oldOrgUser = orgUserService.getOne(new LambdaQueryWrapper<OrgUser>().eq(OrgUser::getId, orgUserDto.getId()));
+
         OrgUser orgUser = new OrgUser();
         BeanUtil.copyProperties(orgUserDto, orgUser);
-        orgUser.setUpdateTime(new Date());
         boolean result = orgUserService.updateById(orgUser);
+
+//        OrgUser newOrgUser = orgUserService.getOne(new LambdaQueryWrapper<OrgUser>().eq(OrgUser::getId, orgUser.getId()));
+//        Map<String, String> map= CompareObject.contrastObj(oldOrgUser, newOrgUser, OrgUser.class);
+//        System.out.println(map.toString());
+
+
         if (result == true) {
             return ResponseEntity.ok(orgUser);
         } else {

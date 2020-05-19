@@ -1,5 +1,6 @@
 package com.buxiban.system.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -19,7 +20,7 @@ public class OperationLog {
     @TableId("id")
     private String id;
 
-    @TableField("create_time")
+    @TableField(value = "create_time", fill = FieldFill.INSERT)
     private Date createTime;
 
     /**
@@ -55,8 +56,8 @@ public class OperationLog {
     /**
      * 方法运行时间
      */
-    @TableField("run_time")
-    private Long runTime;
+//    @TableField("run_time")
+//    private Long runTime;
     /**
      * 方法返回值
      */

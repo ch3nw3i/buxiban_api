@@ -15,6 +15,9 @@ import java.io.Serializable;
 @Data
 @ApiModel
 public class OrgUserDto implements Serializable {
+    @ApiParam(value = "机构用户id")
+    private Integer id;
+
     @ApiParam(value = "机构id")
     private Integer orgId;
 
