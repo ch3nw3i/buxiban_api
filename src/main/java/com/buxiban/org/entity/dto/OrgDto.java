@@ -1,9 +1,11 @@
 package com.buxiban.org.entity.dto;
 
 import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -12,17 +14,20 @@ import java.io.Serializable;
  * @Date: 2020-04-26 22:56
  */
 @Data
-@ApiModel
+@ApiModel(description = "机构基本信息")
 public class OrgDto implements Serializable {
-    @ApiParam(value = "自定义机构号，用于机构员工登录")
+    @ApiModelProperty(value = "自定义机构号，用于机构员工登录", required = true)
+    @NotNull(message = "自定义机构号 不能为空")
     private String orgCode;
 
-    @ApiParam(value = "机构名称")
+    @ApiModelProperty(value = "机构名称", required = true)
+    @NotNull(message = "机构名称 不能为空")
     private String name;
 
-    @ApiParam(value = "负责人")
+    @ApiModelProperty(value = "机构负责人", required = true)
+    @NotNull(message = "机构负责人 不能为空")
     private Integer principalUserId;
 
-    @ApiParam(value = "机构描述")
+    @ApiModelProperty(value = "机构描述")
     private String description;
 }

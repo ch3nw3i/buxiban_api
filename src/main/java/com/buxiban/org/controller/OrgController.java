@@ -15,6 +15,7 @@ import cn.hutool.core.bean.BeanUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
@@ -56,7 +57,7 @@ public class OrgController {
 
     @PostMapping("")
     @ApiOperation("创建培训机构")
-    public ResponseEntity add(@RequestBody OrgDto orgDto) {
+    public ResponseEntity add(@RequestBody @Validated OrgDto orgDto) {
         Org org = new Org();
         BeanUtil.copyProperties(orgDto, org);
         boolean result = orgService.save(org);
@@ -80,7 +81,7 @@ public class OrgController {
 
     @PutMapping("")
     @ApiOperation("更新培训机构信息（全部字段）")
-    public ResponseEntity update(@RequestBody Org org) {
+    public ResponseEntity update(@RequestBody @Validated Org org) {
         boolean result = orgService.updateById(org);
         if (result == true) {
             return ResponseEntity.ok(org);

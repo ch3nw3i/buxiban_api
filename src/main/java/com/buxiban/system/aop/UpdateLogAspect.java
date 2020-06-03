@@ -30,8 +30,8 @@ import static com.baomidou.mybatisplus.core.toolkit.IdWorker.getId;
  * @Author: ch3nw3i@github
  * @Date: 2020-05-19 22:47
  */
-@Aspect
-@Component
+//@Aspect
+//@Component
 public class UpdateLogAspect {
 
     @Autowired
@@ -57,11 +57,11 @@ public class UpdateLogAspect {
         Object oldObj = null;
         if (result) {
 //            Field id = ReflectUtil.getField(aClass, "id");
-            Integer id = ((OrgUserDto) arg).getId();
-            OrgUser orgUser = orgUserService.getOne(new LambdaQueryWrapper<OrgUser>().eq(OrgUser::getId, id));
+//            Integer id = ((OrgUserDto) arg).getId();
+//            OrgUser orgUser = orgUserService.getOne(new LambdaQueryWrapper<OrgUser>().eq(OrgUser::getId, id));
 //            String s = id.toString();
 //            System.out.println(orgUser.toString());
-            oldObj = (Object) orgUser;
+//            oldObj = (Object) orgUser;
 
         }
 //        MethodSignature signature = (MethodSignature) joinPoint.getSignature();
